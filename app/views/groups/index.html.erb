@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="w-full">
+<h1 class="font-bold text-4xl mb-16">Groups</h1>
+<div class="flex gap-6 w-full justify-between">
+  
+  <div data-controller="filter">
+    <div class="w-full">
+  
+      <div class="flex">
+        <div class="w-full">
+          <%= render(MenuBarComponent.new(items: ['All groups', 'Created by me', 'Where I am a member'])) %>
+        </div>
+        
+      </div>
+    </div>
+    <ul class="list-none flex flex-col gap-6">
+      <% @groups.each do |group| %>
+        <%= render(GroupComponent.new(group: group, current_user: current_user)) %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="relative" data-controller="groupmodal">
+    <button type="button" data-action="click->groupmodal#showhide" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      + Create a new group
+    </button>
+    <div class="absolute right-0 w-80" data-groupmodal-target="modal">
+      <%= render(GroupFormModalComponent.new(object: @group)) %>
+    </div>
+  </div>
+</div>
+</div>

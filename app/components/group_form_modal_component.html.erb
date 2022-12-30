@@ -1,0 +1,32 @@
+<div class="modal fade bg-slate-300	h-auto w-50 p-3 outline-none overflow-x-hidden overflow-y-auto"
+  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <h1 class="text-xl font-bold mb-4">Create/ Edit Group</h1>
+  <div>
+    <%= form_with(model: @object) do |form| %>
+    <div class="flex gap-2">
+        <h2 class="text-md font-medium leading-normal text-gray-800" id="exampleModalLabel">Group Name<h2>
+        <%= form.text_field :name, {:class => "w-full title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none", :spellcheck => "false", :placeholder => "Title", :type => "text"} %>
+    </div>
+        <p class="modal-body relative p-4"> People will see this name before joining your group</p>
+        <%= form.submit 'Create/Save', :class => "px-6
+        py-2.5
+        bg-blue-600
+        text-white
+        font-medium
+        text-xs
+        leading-tight
+        uppercase
+        rounded
+        shadow-md
+        hover:bg-blue-700 hover:shadow-lg
+        focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+        active:bg-blue-800 active:shadow-lg
+        transition
+        duration-150
+        ease-in-out
+        ml-1" %>
+        <% end %>
+    </div>
+  
+</div>
+

@@ -1,0 +1,20 @@
+<li class="w-full rounded overflow-hidden shadow-lg">
+    <div class="flex px-8 gap-12">
+        <div>
+            <%= link_to group_url(@group.id) do %>
+                <h2 class="font-bold text-xl mb-2"><%= @group.name %></h2>
+            <% end %>
+            <div class="px-6 pt-4 pb-2">
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><%= @group.users.count %> Members</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><%= @group.posts.count %> Posts</span>
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Last activity <%= time_tag @group.created_at, "data-local": "time-ago" %></span>
+            </div>
+        </div>
+        <% if (@group.creator != @current_user && !@current_user.groups.include?(@group)) %>
+            <%= form_with url: "/groups/#{@group.id}/memberships", method: :post do |form| %>
+                <%= form.submit "Join" %>
+            <% end %>
+
+        <% end %>
+    </div>
+</li>

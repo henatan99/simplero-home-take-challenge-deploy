@@ -1,0 +1,6 @@
+<%= form_with(model: @object) do |form| %>
+  
+    <%= form.text_area :content, {:class => "w-full description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none"} %>
+
+    <%= form.submit %>
+<% end %>

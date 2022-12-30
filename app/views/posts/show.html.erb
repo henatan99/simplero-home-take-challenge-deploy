@@ -1,0 +1,36 @@
+<div class="flex flex-col">
+<div class="mb-16">
+    <h2 class="text-2xl font-bold mb-6"><%= @post.title %></h2>
+    <p><%= @post.content %></p>
+</div>
+
+<div>
+    <h2 class="text-xl font-bold mb-4">Comments</h2>
+    <ul>
+        <% @post.comments.each do |comment| %>
+            <li>
+                <p><%= comment.content %></p>
+                <div data-controller="groupmodal">
+                   <span> <%= comment.user.email %> Commented</span>
+                   <span><%= time_tag comment.created_at, "data-local": "time-ago" %></span>
+                   <% if current_user == comment.user || current_user == @post.group.creator %>
+                        <div>
+                            <span>
+                            <button data-action="click->groupmodal#showhide">Edit</button>
+                            </span>
+                            <span>Delete</span>
+                        </div>
+                        <div data-groupmodal-target="modal">
+                            <%= render(CommentFormComponent.new(object: [@group, @post, comment ])) %>
+                        </div>
+                   <% end %>
+                   <span>Reply</span>
+                </div>
+            </li>
+        <% end %>
+    </ul>
+    <div class="py-10">
+        <%= render(CommentFormComponent.new(object: [@group, @post, Comment.new ])) %>
+    </div>
+</div>
+<div>

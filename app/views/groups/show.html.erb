@@ -1,0 +1,59 @@
+<div class="flex w-full justify-between">
+<div class="flex-col">
+    <div class="flex">
+        <div data-controller="groupmodal">
+            <div class="flex">
+                <h1 class="text-4xl font-bold "><%= @group.name %></h1>
+                <div >
+                    <button data-action="click->groupmodal#showhide">
+                        Edit
+                        <i class="fa-sharp fa-solid fa-gear"></i>
+                    <button>
+                </div>
+            </div>
+            <div class="relative" data-groupmodal-target="modal">
+                <div class="absolute top-5 right-0">
+                    <% if (@group.creator == current_user)%>
+                        <%= render(GroupFormModalComponent.new(object: @group)) %>
+                    <% end %>
+                </div>
+            </div>
+            <% if (@group.creator == current_user || @group.users.include?(current_user)) %>
+                <%= render(FormComponent.new(object: [ @group, Post.new ])) %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-3">
+        <% @group.posts.each do |post| %>
+            <h2 class="font-bold"><%= post.title %></h2>
+            <p><%= post.content %></p>
+            <p class="bg-slate-100 w-fit py-2 px-5"><%= link_to 'View post -> ', group_post_url(@group.id, post.id) %></p>
+            <div class="flex gap-2">
+                <span>Last comment</span>
+                <% if current_user == post.user || current_user == post.group.creator %>
+                    <div>
+                        <span>
+                            <%= link_to "Edit",  edit_group_post_url(@group, post) %>
+                        </span>
+                        <span>Delete</span>
+                    </div>
+                <% end %>
+                <span>Created by <%= post.user.email %></span>
+            </div>
+        <% end %>
+    </div>
+</div>
+<div class="w-80 bg-slate-100 p-4">
+    <h1 class="text-xl">Members</h1>
+
+    <div class="w-full h-screen bg-slate-100">
+        <% @group.users.each do |user| %>
+            <p>
+                User: 
+                <%= user.email %>
+            </p>
+        <% end %>
+    </div>
+</div>
+</div>

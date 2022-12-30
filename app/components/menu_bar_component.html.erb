@@ -1,0 +1,11 @@
+<nav class="flex w-full items-center justify-between flex-wrap bg-teal-500 px-6 mb-10">
+  <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto h-auto">
+    <div class="w-full flex text-lg lg:flex-grow justify-between">
+        <% @items.each do |item| %>
+            <a href="#responsive-header" class="block mt-1 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                <%= item %>
+            </a>
+        <% end %>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,24 @@
+<div class="flex flex-col">
+    <div>
+        <%= render(FormComponent.new(object: [@group, @post])) %>
+    </div>
+    <div>
+        <h2 class="text-xl font-bold mb-4">Comments</h2>
+        <ul>
+            <% @post.comments.each do |comment| %>
+                <li>
+                    <p><%= comment.content %></p>
+                    <div>
+                    <span> <%= comment.user.email %> Commented</span>
+                    <span><%= time_tag comment.created_at, "data-local": "time-ago" %></span>
+                    <% if current_user == comment.user || current_user == @post.group.creator %>
+                        <span>Edit</span>
+                        <span>Delete</span>
+                    <% end %>
+                    <span>Reply</span>
+                    </div>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</div>
